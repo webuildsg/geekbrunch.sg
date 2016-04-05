@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geek Brunch SG</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
+<style>
+html{
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
+  background-size: cover;
+  display: flex;
+}
+body{
+  font-family: Arvo, sans-serif;
+  max-width: 25em;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+  line-height: 1.5em;
+  text-shadow: 0 1px #000;
+}
+a{
+  color: #fff;
+}
+a.button{
+  display: inline-block;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px 30px;
+  text-decoration: none;
+}
+a.button:hover, a.button:active{
+  background-color: rgba(255,255,255,.25);
+}
+footer{
+  margin-top: 5em;
+  font-size: .8em;
+  opacity: .65;
+}
+footer:hover{
+  opacity: 1;
+}
+</style>
+<h1>Geek Brunch SG</h1>
+<p>A biannual social gathering for all developers, designers and makers in&nbsp;Singapore.</p>
+<p>Come down and have a brunch.<br>Bring someone new, someone&nbsp;curious.</p>
+<div id="event-details">
+</div>
+<p><a class="button" href="https://www.facebook.com/events/883049111807282/">RSVP now</a></p>
+<footer>
+  Jointly organised by <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a> &amp; <a href="https://kopijs.org/">Kopi.JS</a>.
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.3/moment-timezone-with-data-2010-2020.min.js"></script>
+<script>
+var $eventDetails = document.getElementById('event-details');
+// Because Safari doesn't support `fetch`
+var xhr = new XMLHttpRequest();
+xhr.onload = function(){
+  var data = JSON.parse(this.responseText);
+  console.log(data);
+  $eventDetails.innerHTML = '<p>🗓 '
+      + moment.tz(data.start_time, 'Asia/Singapore').format('dddd MMM D @ h:mm A')
+    + '<br>🗺 '
+      + data.place.name + ', ' + data.place.location.city
+    + '</p>';
+};
+xhr.open('GET', 'https://graph.facebook.com/v2.5/883049111807282?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
+xhr.send();
+</script>
