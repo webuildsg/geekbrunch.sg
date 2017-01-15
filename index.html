@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
 <style>
 html{
-  height: 100%;
+  min-height: 100%;
   background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
   background-size: cover;
   display: flex;
@@ -34,9 +34,11 @@ a{
 a.button{
   display: inline-block;
   border: 1px solid #fff;
-  border-radius: 5px;
-  padding: 10px 30px;
+  border-radius: 1em;
+  padding: .5em 2em;
   text-decoration: none;
+  transition: .3s background-color;
+  font-size: 150%;
 }
 a.button:hover, a.button:active{
   background-color: rgba(255,255,255,.25);
@@ -44,7 +46,8 @@ a.button:hover, a.button:active{
 footer{
   margin-top: 5em;
   font-size: .8em;
-  opacity: .65;
+  opacity: .7;
+  transition: .3s opacity;
 }
 footer:hover{
   opacity: 1;
