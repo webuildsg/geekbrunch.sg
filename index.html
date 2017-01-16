@@ -82,7 +82,8 @@ function tzDate(d, offset){ // date object, timezone offset in minutes
 var xhr = new XMLHttpRequest();
 xhr.onload = function(){
   var data = JSON.parse(this.responseText);
-  var offsetDate = tzDate(new Date(data.start_time), -480); // +08:00
+  var date = new Date(data.start_time.replace(/(\d{2})(\d{2})$/, '$1:$2'));
+  var offsetDate = tzDate(date, -480); // +08:00
   $eventDetails.innerHTML = '<p>🗓 '
       + offsetDate.format('DDDD MMM D @ H:mm A')
     + '<br>🗺 '
