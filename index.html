@@ -69,17 +69,22 @@ footer:hover{
   <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read the story</a>.
 </footer>
 <div id="debug"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.3/moment-timezone-with-data-2010-2020.min.js"></script>
+<script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script>
 <script>
 var $eventDetails = document.getElementById('event-details');
+function tzDate(d, offset){ // date object, timezone offset in minutes
+  var offsetLocal = d.getTimezoneOffset();
+  var diff = (offset - offsetLocal) * 60000;
+  return new Date((+d) + diff);
+};
+
 // Because Safari doesn't support `fetch`
 var xhr = new XMLHttpRequest();
 xhr.onload = function(){
   var data = JSON.parse(this.responseText);
-  console.log(data);
+  var offsetDate = tzDate(new Date(data.start_time), -480); // +08:00
   $eventDetails.innerHTML = '<p>🗓 '
-      + moment.tz(data.start_time, 'Asia/Singapore').format('dddd MMM D @ h:mm A')
+      + offsetDate.format('DDDD MMM D @ H:mm A')
     + '<br>🗺 '
       + data.place.name + ', ' + data.place.location.city
     + '</p>';
