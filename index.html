@@ -18,8 +18,6 @@ html{
   background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
   background-size: cover;
   display: flex;
-  -webkit-user-select: none;
-  user-select: none;
 }
 body{
   font-family: Arvo, sans-serif;
@@ -94,18 +92,8 @@ xhr.onload = function(){
 xhr.open('GET', 'https://graph.facebook.com/v2.8/663549580471268?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
 xhr.send();
 
-var midPoint = 50, range = 20, prevLeft = 50, paused = false;
-document.addEventListener('touchstart', function(){
-  paused = true;
-});
-document.addEventListener('touchcancel', function(){
-  paused = false;
-});
-document.addEventListener('touchend', function(){
-  paused = false;
-});
+var midPoint = 50, range = 20, prevLeft = 50;
 window.addEventListener('deviceorientation', function(e){
-  if (paused) return;
   var side = window.orientation == 0 ? 'gamma' /* portrait */ : 'beta' /* landscape */;
   var rot = Math.max(-range, Math.min(range, e[side]));
   var left = midPoint - midPoint/range*rot;
