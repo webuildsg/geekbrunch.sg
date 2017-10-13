@@ -68,6 +68,7 @@ footer:hover{
   opacity: .3;
   pointer-events: none;
   z-index: -1;
+  transform-origin: top left;
 }
 </style>
 <h1>Geek Brunch SG</h1>
@@ -121,9 +122,10 @@ var isWebGLSupported = (function(){
   return ctx !== undefined;
 })();
 
+var $bg = document.getElementById('background');
 if (!isWebGLSupported){
   document.documentElement.classList.add('nowebgl');
-  document.getElementById('background').innerHTML = '';
+  $bg.innerHTML = '';
 
   var midPoint = 50, range = 20, prevLeft = 50;
   window.addEventListener('deviceorientation', function(e){
@@ -136,5 +138,27 @@ if (!isWebGLSupported){
     // document.getElementById('debug').innerHTML = left + ' ' + prevLeft;
     document.documentElement.style.backgroundPosition = fixedLeft + '% center';
   });
+} else {
+  var dpr = Math.max(1, window.devicePixelRatio);
+  var maxWidth = 800/dpr;
+  var fitBg = function(){
+    var vw = window.innerWidth;
+    if (vw > maxWidth){
+      var vh = window.innerHeight;
+      var maxHeight = vh / vw * maxWidth;
+      var scale = vw / maxWidth;
+      $bg.setAttribute('style', ''
+        + 'width: ' + maxWidth + 'px;'
+        + 'height: ' + maxHeight + 'px;'
+        + 'transform: scale(' + scale + ');'
+      + '');
+    } else {
+      $bg.removeAttribute('style');
+    }
+  };
+  window.onresize = function(){
+    requestAnimationFrame(fitBg);
+  };
+  fitBg();
 }
 </script>
