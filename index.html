@@ -11,13 +11,16 @@
 <meta name="twitter:image" property="og:image" content="https://geekbrunch.sg/background.jpg">
 <!-- end metacrap -->
 <link rel="icon" href="favicon.png" type="image/png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo:400">
 <style>
 html{
   min-height: 100%;
-  background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
+  background-color: #000;
   background-size: cover;
   display: flex;
+}
+html.nowebgl{
+  background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
 }
 body{
   font-family: Arvo, sans-serif;
@@ -29,6 +32,9 @@ body{
   line-height: 1.5em;
   text-shadow: 0 1px #000;
 }
+h1{
+  font-weight: normal;
+}
 a{
   color: #fff;
 }
@@ -38,11 +44,13 @@ a.button{
   border-radius: 1em;
   padding: .5em 2em;
   text-decoration: none;
-  transition: .3s background-color;
   font-size: 150%;
+  background-color: rgba(255,255,255,.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 a.button:hover, a.button:active{
-  background-color: rgba(255,255,255,.25);
+  background-color: transparent;
 }
 footer{
   margin-top: 5em;
@@ -53,10 +61,18 @@ footer{
 footer:hover{
   opacity: 1;
 }
+#background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: .3;
+  pointer-events: none;
+  z-index: -1;
+}
 </style>
 <h1>Geek Brunch SG</h1>
-<p>A biannual social gathering for all engineers, designers and makers in&nbsp;Singapore.</p>
-<p>Come down and have a brunch.<br>Bring someone new, someone&nbsp;curious.</p>
+<p>A biannual social gathering for all developers, makers and designers in&nbsp;Singapore.</p>
+<p>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</p>
 <div id="event-details">
 </div>
 <p><a class="button" href="https://www.facebook.com/events/261062764416175/">Join us!</a></p>
@@ -67,8 +83,15 @@ footer:hover{
   <br>
   <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read the story</a>.
 </footer>
+<a-scene id="background" embedded keyboard-shortcuts="enterVR: false" vr-mode-ui="enabled: false">
+  <a-camera wasd-controls-enabled="false"></a-camera>
+  <a-sky src="background-360.jpg" rotation="0 80 60">
+    <a-animation attribute="rotation" fill="forwards" easing="linear" dur="200000" from="0 200 0" to="0 560 0" repeat="indefinite"></a-animation>
+  </a-sky>
+</a-scene>
 <div id="debug"></div>
 <script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script>
+<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
 <script>
 var $eventDetails = document.getElementById('event-details');
 function tzDate(d, offset){ // date object, timezone offset in minutes
@@ -92,15 +115,26 @@ xhr.onload = function(){
 xhr.open('GET', 'https://graph.facebook.com/v2.10/261062764416175?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
 xhr.send();
 
-var midPoint = 50, range = 20, prevLeft = 50;
-window.addEventListener('deviceorientation', function(e){
-  var side = window.orientation == 0 ? 'gamma' /* portrait */ : 'beta' /* landscape */;
-  var rot = Math.max(-range, Math.min(range, e[side]));
-  var left = midPoint - midPoint/range*rot;
-  var fixedLeft = Math.round(left/2) * 2;
-  if (Math.abs(fixedLeft - prevLeft) > 50) return; // Ignore sudden jumps
-  prevLeft = fixedLeft;
-  // document.getElementById('debug').innerHTML = left + ' ' + prevLeft;
-  document.documentElement.style.backgroundPosition = fixedLeft + '% center';
-});
+var isWebGLSupported = (function(){
+  var canvas = document.createElement('canvas');
+  var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  return ctx !== undefined;
+})();
+
+if (!isWebGLSupported){
+  document.documentElement.classList.add('nowebgl');
+  document.getElementById('background').innerHTML = '';
+
+  var midPoint = 50, range = 20, prevLeft = 50;
+  window.addEventListener('deviceorientation', function(e){
+    var side = window.orientation == 0 ? 'gamma' /* portrait */ : 'beta' /* landscape */;
+    var rot = Math.max(-range, Math.min(range, e[side]));
+    var left = midPoint - midPoint/range*rot;
+    var fixedLeft = Math.round(left/2) * 2;
+    if (Math.abs(fixedLeft - prevLeft) > 50) return; // Ignore sudden jumps
+    prevLeft = fixedLeft;
+    // document.getElementById('debug').innerHTML = left + ' ' + prevLeft;
+    document.documentElement.style.backgroundPosition = fixedLeft + '% center';
+  });
+}
 </script>
