@@ -88,8 +88,8 @@ footer:hover{
   <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read the story</a>.
 </footer>
 <div id="background">
-  <a-scene embedded keyboard-shortcuts="enterVR: false" vr-mode-ui="enabled: false">
-    <a-camera wasd-controls-enabled="false"></a-camera>
+  <a-scene embedded keyboard-shortcuts="enterVR: false" vr-mode-ui="enabled: false" light="defaultLightsEnabled: false">
+    <a-camera look-controls-enabled="false" wasd-controls-enabled="false"></a-camera>
     <a-sky src="background-360.jpg" rotation="0 80 60">
       <a-animation attribute="rotation" fill="forwards" easing="linear" dur="200000" from="0 200 0" to="0 560 0" repeat="indefinite"></a-animation>
     </a-sky>
