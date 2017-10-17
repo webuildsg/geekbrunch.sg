@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo:400">
 <style>
 html{
-  position: static !important;
   min-height: 100%;
   background-color: #000;
   background-size: cover;
@@ -27,7 +26,7 @@ body{
   font-family: Arvo, sans-serif;
   max-width: 25em;
   padding: 10px;
-  margin: auto !important;
+  margin: auto;
   text-align: center;
   color: #fff;
   line-height: 1.5em;
@@ -103,17 +102,19 @@ footer:hover{
   <br>
   <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a> &amp; <a href="https://kopijs.org/">Kopi.JS</a>.
 </footer>
-<div id="background">
-  <a-scene embedded keyboard-shortcuts="enterVR: false" vr-mode-ui="enabled: false" light="defaultLightsEnabled: false">
-    <a-camera wasd-controls-enabled="false"></a-camera>
-    <a-sky src="background-360.jpg" rotation="0 80 60">
-      <a-animation attribute="rotation" fill="forwards" easing="linear" dur="200000" from="0 200 0" to="0 560 0" repeat="indefinite"></a-animation>
-    </a-sky>
-  </a-scene>
-</div>
+<div id="background"></div>
 <div id="debug"></div>
 <script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script>
-<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+<script src="https://unpkg.com/three@0.87.1/build/three.min.js"></script>
+<script>
+/**
+ * @author richt / http://richt.me
+ * @author WestLangley / http://github.com/WestLangley
+ *
+ * W3C Device Orientation control (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
+ */
+THREE.DeviceOrientationControls=function(e){var t=this;this.object=e,this.object.rotation.reorder("YXZ"),this.enabled=!0,this.deviceOrientation={},this.screenOrientation=0,this.alpha=0,this.alphaOffsetAngle=0;var n=function(e){t.deviceOrientation=e},i=function(){t.screenOrientation=window.orientation||0},a=function(){var e=new THREE.Vector3(0,0,1),t=new THREE.Euler,n=new THREE.Quaternion,i=new THREE.Quaternion(-Math.sqrt(.5),0,0,Math.sqrt(.5));return function(a,o,r,s,c){t.set(r,o,-s,"YXZ"),a.setFromEuler(t),a.multiply(i),a.multiply(n.setFromAxisAngle(e,-c))}}();this.connect=function(){i(),window.addEventListener("orientationchange",i,!1),window.addEventListener("deviceorientation",n,!1),t.enabled=!0},this.disconnect=function(){window.removeEventListener("orientationchange",i,!1),window.removeEventListener("deviceorientation",n,!1),t.enabled=!1},this.update=function(){if(!1!==t.enabled){var e=t.deviceOrientation.alpha?THREE.Math.degToRad(t.deviceOrientation.alpha)+this.alphaOffsetAngle:0,n=t.deviceOrientation.beta?THREE.Math.degToRad(t.deviceOrientation.beta):0,i=t.deviceOrientation.gamma?THREE.Math.degToRad(t.deviceOrientation.gamma):0,o=t.screenOrientation?THREE.Math.degToRad(t.screenOrientation):0;a(t.object.quaternion,e,n,i,o),this.alpha=e}},this.updateAlphaOffsetAngle=function(e){this.alphaOffsetAngle=e,this.update()},this.dispose=function(){this.disconnect()},this.connect()};
+</script>
 <script>
 var $eventDetails = document.getElementById('event-details');
 function tzDate(d, offset){ // date object, timezone offset in minutes
@@ -160,25 +161,48 @@ if (!isWebGLSupported){
     document.documentElement.style.backgroundPosition = fixedLeft + '% center';
   });
 } else {
-  var dpr = Math.max(1, window.devicePixelRatio);
-  var maxWidth = 800/dpr;
-  var fitBg = function(){
-    var vw = window.innerWidth;
-    if (vw > maxWidth){
-      var vh = window.innerHeight;
-      var maxHeight = vh / vw * maxWidth;
-      var scale = vw / maxWidth;
-      $bg.style.width = maxWidth + 'px';
-      $bg.style.height = maxHeight + 'px';
-      $bg.style.transform = 'scale(' + scale + ')';
-    } else {
-      $bg.style.width = $bg.style.height = $bg.style.transform = '';
-    }
-    $bg.querySelector('a-scene').resize(); // Re-render when resize
+  var radius = 500;
+  var container = document.getElementById('background');
+  var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1100);
+
+  controls = new THREE.DeviceOrientationControls(camera);
+
+  var scene = new THREE.Scene();
+  var geometry = new THREE.SphereBufferGeometry(radius, 24, 18);
+  // invert the geometry on the x-axis so that all of the faces point inward
+  geometry.scale(-1, 1, 1);
+  geometry.rotateY(-3); // point to the desired angle
+  var material = new THREE.MeshBasicMaterial({
+    map: new THREE.TextureLoader().load('background-360.jpg'),
+  });
+  var mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  var renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
+
+  var supportsOrientation = typeof window.orientation != 'undefined';
+  function update(){
+    geometry.rotateY(0.001);
+    if (supportsOrientation) controls.update();
+    renderer.render( scene, camera );
   };
+  function animate(){
+    update();
+    requestAnimationFrame(animate);
+  };
+  animate();
+
   window.addEventListener('resize', function(){
-    requestAnimationFrame(fitBg);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
   }, false);
-  fitBg();
+
+  // Stats
+  // (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';document.head.appendChild(script);})()
+
 }
 </script>
