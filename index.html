@@ -78,6 +78,10 @@ footer{
 footer:hover{
   opacity: 1;
 }
+#event-details a{
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+}
 #background{
   position: fixed;
   top: 0;
@@ -124,25 +128,34 @@ THREE.DeviceOrientationControls=function(e){var t=this;this.object=e,this.object
 </script>
 <script>
 var $eventDetails = document.getElementById('event-details');
-function tzDate(d, offset){ // date object, timezone offset in minutes
-  var offsetLocal = d.getTimezoneOffset();
-  var diff = (offset - offsetLocal) * 60000;
-  return new Date((+d) + diff);
+
+// Inspired by https://github.com/samverschueren/tz-format
+// date object, timezone offset from UTC in hours
+function tzDate(d, offset){
+  offset = offset && offset * 60;
+  d.setMinutes(d.getMinutes() + d.getTimezoneOffset() + offset);
+  return d;
 };
 
 // Because Safari doesn't support `fetch`
 var xhr = new XMLHttpRequest();
+var eventID = '261062764416175';
 xhr.onload = function(){
   var data = JSON.parse(this.responseText);
   var date = new Date(data.start_time.replace(/(\d{2})(\d{2})$/, '$1:$2'));
-  var offsetDate = tzDate(date, -480); // +08:00
-  $eventDetails.innerHTML = '<p>🗓 '
-      + offsetDate.format('DDDD MMM D @ H:mm A')
-    + '<br>🗺 '
-      + data.place.name + ', ' + data.place.location.city
-    + '</p>';
+  var offsetDate = tzDate(date, 8);
+  $eventDetails.innerHTML = '<p>'
+    + '<a href="https://www.facebook.com/events/ical/export/?eid=' + eventID + '">'
+      + '🗓 ' + offsetDate.format('DDDD MMM D @ H:mm A') + ' SGT'
+    + '</a>'
+    + '<br>'
+    + '<a href="https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(data.place.name + ', ' + data.place.location.street + ', ' + data.place.location.country) + '" target="_blank">'
+      + '🗺 ' + data.place.name + ', ' + data.place.location.city
+    + '</a>'
+  + '</p>';
+  document.title += ' – ' + offsetDate.format('MMMM D, YYYY');
 };
-xhr.open('GET', 'https://graph.facebook.com/v2.10/261062764416175?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
+xhr.open('GET', 'https://graph.facebook.com/v2.10/' + eventID + '?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
 xhr.send();
 
 var isWebGLSupported = (function(){
