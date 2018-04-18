@@ -13,236 +13,287 @@
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo:400">
 <style>
-html{
-  min-height: 100%;
-  background-color: #000;
-  background-size: cover;
-  display: flex;
-}
-html.nowebgl{
-  background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url(background.jpg) center no-repeat;
-}
-body{
-  font-family: Arvo, sans-serif;
-  max-width: 25em;
-  padding: 10px;
-  margin: auto;
-  text-align: center;
-  color: #fff;
-  line-height: 1.5em;
-  text-shadow: 0 1px #000;
-}
-h1{
-  font-weight: normal;
-}
-a{
-  color: #fff;
-}
-a.button{
-  display: inline-block;
-  border-radius: 21102017px;
-  padding: .5em 2em;
-  text-decoration: none;
-  text-shadow: none;
-  font-size: 150%;
-  background-color: rgba(255,255,255,.1);
-  border: .5px solid #fff;
-  position: relative;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(5px) saturate(100%);
-}
-a.button:hover{
-  background-color: rgba(0,0,0,.3);
-}
-a.button:active{
-  background-color: rgba(0,0,0,.7);
-  transform: scale(.98);
-}
-footer{
-  margin-top: 4em;
-  font-size: .8em;
-  opacity: .7;
-  transition: .3s opacity;
-}
-footer:hover{
-  opacity: 1;
-}
-#event-details a{
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,.3);
-}
-#background{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .3;
-  pointer-events: none;
-  z-index: -1;
-  text-align: left;
-}
-#background canvas{
-  transform-origin: top left;
-  image-rendering: crisp-edges;
-  image-rendering: pixelated;
-}
+    html {
+        min-height: 100%;
+        background-color: #000;
+        background-size: cover;
+        display: flex;
+    }
+    
+    html.nowebgl {
+        background: linear-gradient(rgba(0, 0, 0, .65), rgba(0, 0, 0, .65)), url(background.jpg) center no-repeat;
+    }
+    
+    body {
+        font-family: Arvo, sans-serif;
+        max-width: 25em;
+        padding: 10px;
+        margin: auto;
+        text-align: center;
+        color: #fff;
+        line-height: 1.5em;
+        text-shadow: 0 1px #000;
+    }
+    
+    h1 {
+        font-weight: normal;
+    }
+    
+    a {
+        color: #fff;
+    }
+    
+    a.button {
+        display: inline-block;
+        border-radius: 21102017px;
+        padding: .5em 2em;
+        text-decoration: none;
+        text-shadow: none;
+        font-size: 150%;
+        background-color: rgba(255, 255, 255, .1);
+        border: .5px solid #fff;
+        position: relative;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(5px) saturate(100%);
+    }
+    
+    a.button:hover {
+        background-color: rgba(0, 0, 0, .3);
+    }
+    
+    a.button:active {
+        background-color: rgba(0, 0, 0, .7);
+        transform: scale(.98);
+    }
+    
+    footer {
+        margin-top: 4em;
+        font-size: .8em;
+        opacity: .7;
+        transition: .3s opacity;
+    }
+    
+    footer:hover {
+        opacity: 1;
+    }
+    
+    #event-details a {
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, .3);
+    }
+    
+    #background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .3;
+        pointer-events: none;
+        z-index: -1;
+        text-align: left;
+    }
+    
+    #background canvas {
+        transform-origin: top left;
+        image-rendering: crisp-edges;
+        image-rendering: pixelated;
+    }
 </style>
 <section>
-  <h1>Geek Brunch SG</h1>
-  <p>A biannual social gathering for all developers, makers and designers in&nbsp;Singapore.</p>
-  <p>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</p>
-  <div id="event-details">
-  </div>
-  <p><a class="button" href="https://www.facebook.com/events/261062764416175/">Join us!</a></p>
-  <footer>
-    <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read our story</a>.<br>
-    Jointly organised by
-    <br>
-    <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a> &amp; <a href="https://kopijs.org/">Kopi.JS</a>.
-  </footer>
+    <h1>Geek Brunch SG</h1>
+    <p>A biannual social gathering for all developers, makers and designers in&nbsp;Singapore.</p>
+    <p>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</p>
+    <div id="event-details">
+    </div>
+    <p><a class="button" href="https://www.facebook.com/events/1080374815437357/">Join us!</a></p>
+    <footer>
+        <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read our story</a>.<br> Jointly organised by
+        <br>
+        <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a>, <a href="https://kopijs.org/">Kopi.JS</a> &amp; <a href="https://juniordev.sg/">Junior Dev SG</a>.
+    </footer>
 </section>
 <div id="background"></div>
 <div id="debug"></div>
 <script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script>
 <script src="https://unpkg.com/three@0.87.1/build/three.min.js"></script>
 <script>
-/**
- * @author richt / http://richt.me
- * @author WestLangley / http://github.com/WestLangley
- *
- * W3C Device Orientation control (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
- */
-THREE.DeviceOrientationControls=function(e){var t=this;this.object=e,this.object.rotation.reorder("YXZ"),this.enabled=!0,this.deviceOrientation={},this.screenOrientation=0,this.alpha=0,this.alphaOffsetAngle=0;var n=function(e){t.deviceOrientation=e},i=function(){t.screenOrientation=window.orientation||0},a=function(){var e=new THREE.Vector3(0,0,1),t=new THREE.Euler,n=new THREE.Quaternion,i=new THREE.Quaternion(-Math.sqrt(.5),0,0,Math.sqrt(.5));return function(a,o,r,s,c){t.set(r,o,-s,"YXZ"),a.setFromEuler(t),a.multiply(i),a.multiply(n.setFromAxisAngle(e,-c))}}();this.connect=function(){i(),window.addEventListener("orientationchange",i,!1),window.addEventListener("deviceorientation",n,!1),t.enabled=!0},this.disconnect=function(){window.removeEventListener("orientationchange",i,!1),window.removeEventListener("deviceorientation",n,!1),t.enabled=!1},this.update=function(){if(!1!==t.enabled){var e=t.deviceOrientation.alpha?THREE.Math.degToRad(t.deviceOrientation.alpha)+this.alphaOffsetAngle:0,n=t.deviceOrientation.beta?THREE.Math.degToRad(t.deviceOrientation.beta):0,i=t.deviceOrientation.gamma?THREE.Math.degToRad(t.deviceOrientation.gamma):0,o=t.screenOrientation?THREE.Math.degToRad(t.screenOrientation):0;a(t.object.quaternion,e,n,i,o),this.alpha=e}},this.updateAlphaOffsetAngle=function(e){this.alphaOffsetAngle=e,this.update()},this.dispose=function(){this.disconnect()},this.connect()};
+    /**
+     * @author richt / http://richt.me
+     * @author WestLangley / http://github.com/WestLangley
+     *
+     * W3C Device Orientation control (http://w3c.github.io/deviceorientation/spec-source-orientation.html)
+     */
+    THREE.DeviceOrientationControls = function(e) {
+        var t = this;
+        this.object = e, this.object.rotation.reorder("YXZ"), this.enabled = !0, this.deviceOrientation = {}, this.screenOrientation = 0, this.alpha = 0, this.alphaOffsetAngle = 0;
+        var n = function(e) {
+                t.deviceOrientation = e
+            },
+            i = function() {
+                t.screenOrientation = window.orientation || 0
+            },
+            a = function() {
+                var e = new THREE.Vector3(0, 0, 1),
+                    t = new THREE.Euler,
+                    n = new THREE.Quaternion,
+                    i = new THREE.Quaternion(-Math.sqrt(.5), 0, 0, Math.sqrt(.5));
+                return function(a, o, r, s, c) {
+                    t.set(r, o, -s, "YXZ"), a.setFromEuler(t), a.multiply(i), a.multiply(n.setFromAxisAngle(e, -c))
+                }
+            }();
+        this.connect = function() {
+            i(), window.addEventListener("orientationchange", i, !1), window.addEventListener("deviceorientation", n, !1), t.enabled = !0
+        }, this.disconnect = function() {
+            window.removeEventListener("orientationchange", i, !1), window.removeEventListener("deviceorientation", n, !1), t.enabled = !1
+        }, this.update = function() {
+            if (!1 !== t.enabled) {
+                var e = t.deviceOrientation.alpha ? THREE.Math.degToRad(t.deviceOrientation.alpha) + this.alphaOffsetAngle : 0,
+                    n = t.deviceOrientation.beta ? THREE.Math.degToRad(t.deviceOrientation.beta) : 0,
+                    i = t.deviceOrientation.gamma ? THREE.Math.degToRad(t.deviceOrientation.gamma) : 0,
+                    o = t.screenOrientation ? THREE.Math.degToRad(t.screenOrientation) : 0;
+                a(t.object.quaternion, e, n, i, o), this.alpha = e
+            }
+        }, this.updateAlphaOffsetAngle = function(e) {
+            this.alphaOffsetAngle = e, this.update()
+        }, this.dispose = function() {
+            this.disconnect()
+        }, this.connect()
+    };
 </script>
 <script>
-var $eventDetails = document.getElementById('event-details');
+    var $eventDetails = document.getElementById('event-details');
 
-// Inspired by https://github.com/samverschueren/tz-format
-// date object, timezone offset from UTC in hours
-function tzDate(d, offset){
-  offset = offset && offset * 60;
-  d.setMinutes(d.getMinutes() + d.getTimezoneOffset() + offset);
-  return d;
-};
-
-// Because Safari doesn't support `fetch`
-var xhr = new XMLHttpRequest();
-var eventID = '261062764416175';
-xhr.onload = function(){
-  var data = JSON.parse(this.responseText);
-  var date = new Date(data.start_time.replace(/(\d{2})(\d{2})$/, '$1:$2'));
-  var offsetDate = tzDate(date, 8);
-  $eventDetails.innerHTML = '<p>'
-    + '<a href="https://www.facebook.com/events/ical/export/?eid=' + eventID + '">'
-      + '🗓 ' + offsetDate.format('DDDD MMM D @ H:mm A') + ' SGT'
-    + '</a>'
-    + '<br>'
-    + '<a href="https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(data.place.name + ', ' + data.place.location.street + ', ' + data.place.location.country) + '" target="_blank">'
-      + '🗺 ' + data.place.name + ', ' + data.place.location.city
-    + '</a>'
-  + '</p>';
-  document.title += ' – ' + offsetDate.format('MMMM D, YYYY');
-};
-xhr.open('GET', 'https://graph.facebook.com/v2.10/' + eventID + '?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
-xhr.send();
-
-var isWebGLSupported = (function(){
-  var canvas = document.createElement('canvas');
-  var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-  return ctx !== undefined;
-})();
-
-var $bg = document.getElementById('background');
-if (!isWebGLSupported){
-  document.documentElement.classList.add('nowebgl');
-  $bg.innerHTML = '';
-
-  var midPoint = 50, range = 20, prevLeft = 50;
-  window.addEventListener('deviceorientation', function(e){
-    var side = window.orientation == 0 ? 'gamma' /* portrait */ : 'beta' /* landscape */;
-    var rot = Math.max(-range, Math.min(range, e[side]));
-    var left = midPoint - midPoint/range*rot;
-    var fixedLeft = Math.round(left/2) * 2;
-    if (Math.abs(fixedLeft - prevLeft) > 50) return; // Ignore sudden jumps
-    prevLeft = fixedLeft;
-    // document.getElementById('debug').innerHTML = left + ' ' + prevLeft;
-    document.documentElement.style.backgroundPosition = fixedLeft + '% center';
-  });
-} else {
-  var radius = 500;
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var dpr = Math.max(1, window.devicePixelRatio);
-  var maxWidth = 1024/dpr;
-
-  var container = document.getElementById('background');
-  var camera = new THREE.PerspectiveCamera(75, vw / vh, 1, 1100);
-
-  controls = new THREE.DeviceOrientationControls(camera);
-
-  var scene = new THREE.Scene();
-  var geometry = new THREE.SphereBufferGeometry(radius, 32, 24);
-  // invert the geometry on the x-axis so that all of the faces point inward
-  geometry.scale(-1, 1, 1);
-  var material = new THREE.MeshBasicMaterial({
-    map: new THREE.TextureLoader().load('background-360.jpg'),
-  });
-  var mesh = new THREE.Mesh(geometry, material);
-  mesh.rotation.y = 3.5 // point to the desired angle
-  scene.add(mesh);
-
-  var renderer = new THREE.WebGLRenderer();
-  renderer.setPixelRatio(dpr);
-  function setSize(){
-    if (vw > maxWidth){
-      var maxHeight = vh / vw * maxWidth;
-      var scale = vw / maxWidth;
-      renderer.setSize(maxWidth, maxHeight);
-      renderer.domElement.style.transform = 'scale(' + scale + ')';
-    } else {
-      renderer.setSize(vw, vh);
-      renderer.domElement.style.transform = '';
-    }
-  };
-  setSize();
-  container.appendChild(renderer.domElement);
-
-  var clock = new THREE.Clock();
-  var supportsOrientation = typeof window.orientation != 'undefined';
-  function update(){
-    var delta = clock.getDelta();
-    mesh.rotation.y += delta * 2 * Math.PI / 180; // 1deg/s
-    if (supportsOrientation) controls.update();
-    renderer.render(scene, camera);
-  };
-  function animate(){
-    requestAnimationFrame(animate);
-    update();
-  };
-  animate();
-
-  window.addEventListener('resize', function(){
-    vw = window.innerWidth;
-    vh = window.innerHeight;
-    camera.aspect = vw / vh;
-    camera.updateProjectionMatrix();
-    setSize();
-  }, false);
-
-  // Stats
-  if (location.hash == '#stats'){
-    var script = document.createElement('script');
-    script.onload = function(){
-      var stats = new Stats();
-      document.body.appendChild(stats.dom);
-      requestAnimationFrame(function loop(){
-        stats.update();
-        requestAnimationFrame(loop);
-      });
+    // Inspired by https://github.com/samverschueren/tz-format
+    // date object, timezone offset from UTC in hours
+    function tzDate(d, offset) {
+        offset = offset && offset * 60;
+        d.setMinutes(d.getMinutes() + d.getTimezoneOffset() + offset);
+        return d;
     };
-    script.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
-    document.head.appendChild(script);
-  }
-}
+
+    // Because Safari doesn't support `fetch`
+    var xhr = new XMLHttpRequest();
+    var eventID = '261062764416175';
+    xhr.onload = function() {
+        var data = JSON.parse(this.responseText);
+        var date = new Date(data.start_time.replace(/(\d{2})(\d{2})$/, '$1:$2'));
+        var offsetDate = tzDate(date, 8);
+        $eventDetails.innerHTML = '<p>' +
+            '<a href="https://www.facebook.com/events/ical/export/?eid=' + eventID + '">' +
+            '🗓 ' + offsetDate.format('DDDD MMM D @ H:mm A') + ' SGT' +
+            '</a>' +
+            '<br>' +
+            '<a href="https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(data.place.name + ', ' + data.place.location.street + ', ' + data.place.location.country) + '" target="_blank">' +
+            '🗺 ' + data.place.name + ', ' + data.place.location.city +
+            '</a>' +
+            '</p>';
+        document.title += ' – ' + offsetDate.format('MMMM D, YYYY');
+    };
+    xhr.open('GET', 'https://graph.facebook.com/v2.10/' + eventID + '?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
+    xhr.send();
+
+    var isWebGLSupported = (function() {
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        return ctx !== undefined;
+    })();
+
+    var $bg = document.getElementById('background');
+    if (!isWebGLSupported) {
+        document.documentElement.classList.add('nowebgl');
+        $bg.innerHTML = '';
+
+        var midPoint = 50,
+            range = 20,
+            prevLeft = 50;
+        window.addEventListener('deviceorientation', function(e) {
+            var side = window.orientation == 0 ? 'gamma' /* portrait */ : 'beta' /* landscape */ ;
+            var rot = Math.max(-range, Math.min(range, e[side]));
+            var left = midPoint - midPoint / range * rot;
+            var fixedLeft = Math.round(left / 2) * 2;
+            if (Math.abs(fixedLeft - prevLeft) > 50) return; // Ignore sudden jumps
+            prevLeft = fixedLeft;
+            // document.getElementById('debug').innerHTML = left + ' ' + prevLeft;
+            document.documentElement.style.backgroundPosition = fixedLeft + '% center';
+        });
+    } else {
+        var radius = 500;
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        var dpr = Math.max(1, window.devicePixelRatio);
+        var maxWidth = 1024 / dpr;
+
+        var container = document.getElementById('background');
+        var camera = new THREE.PerspectiveCamera(75, vw / vh, 1, 1100);
+
+        controls = new THREE.DeviceOrientationControls(camera);
+
+        var scene = new THREE.Scene();
+        var geometry = new THREE.SphereBufferGeometry(radius, 32, 24);
+        // invert the geometry on the x-axis so that all of the faces point inward
+        geometry.scale(-1, 1, 1);
+        var material = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load('background-360.jpg'),
+        });
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.y = 3.5 // point to the desired angle
+        scene.add(mesh);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setPixelRatio(dpr);
+
+        function setSize() {
+            if (vw > maxWidth) {
+                var maxHeight = vh / vw * maxWidth;
+                var scale = vw / maxWidth;
+                renderer.setSize(maxWidth, maxHeight);
+                renderer.domElement.style.transform = 'scale(' + scale + ')';
+            } else {
+                renderer.setSize(vw, vh);
+                renderer.domElement.style.transform = '';
+            }
+        };
+        setSize();
+        container.appendChild(renderer.domElement);
+
+        var clock = new THREE.Clock();
+        var supportsOrientation = typeof window.orientation != 'undefined';
+
+        function update() {
+            var delta = clock.getDelta();
+            mesh.rotation.y += delta * 2 * Math.PI / 180; // 1deg/s
+            if (supportsOrientation) controls.update();
+            renderer.render(scene, camera);
+        };
+
+        function animate() {
+            requestAnimationFrame(animate);
+            update();
+        };
+        animate();
+
+        window.addEventListener('resize', function() {
+            vw = window.innerWidth;
+            vh = window.innerHeight;
+            camera.aspect = vw / vh;
+            camera.updateProjectionMatrix();
+            setSize();
+        }, false);
+
+        // Stats
+        if (location.hash == '#stats') {
+            var script = document.createElement('script');
+            script.onload = function() {
+                var stats = new Stats();
+                document.body.appendChild(stats.dom);
+                requestAnimationFrame(function loop() {
+                    stats.update();
+                    requestAnimationFrame(loop);
+                });
+            };
+            script.src = '//rawgit.com/mrdoob/stats.js/master/build/stats.min.js';
+            document.head.appendChild(script);
+        }
+    }
 </script>
