@@ -106,7 +106,7 @@
     <p>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</p>
     <div id="event-details">
     </div>
-    <p><a class="button" href="https://www.facebook.com/events/355107545033967/">Join us!</a></p>
+    <p><a class="button" href="#">Coming soon</a></p>
     <footer>
         <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read our story</a>.<br> Jointly organised by
         <br>
@@ -115,8 +115,8 @@
 </section>
 <div id="background"></div>
 <div id="debug"></div>
-<script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script>
-<script src="https://unpkg.com/three@0.87.1/build/three.min.js"></script>
+<!-- <script src="https://unpkg.com/date-format-lite@0.9.1/dist/index-min.js"></script> -->
+<script src="https://unpkg.com/three@0.107.0/build/three.min.js"></script>
 <script>
     /**
      * @author richt / http://richt.me
@@ -162,6 +162,7 @@
     };
 </script>
 <script>
+    /*
     var $eventDetails = document.getElementById('event-details');
 
     // Inspired by https://github.com/samverschueren/tz-format
@@ -174,7 +175,7 @@
 
     // Because Safari doesn't support `fetch`
     var xhr = new XMLHttpRequest();
-    var eventID = '261062764416175';
+    var eventID = '355107545033967';
     xhr.onload = function() {
         var data = JSON.parse(this.responseText);
         var date = new Date(data.start_time.replace(/(\d{2})(\d{2})$/, '$1:$2'));
@@ -192,6 +193,7 @@
     };
     xhr.open('GET', 'https://graph.facebook.com/v2.10/' + eventID + '?access_token=217930538571201%7C1jrJldK0NmvpP1q4SXtv_5oMcoU');
     xhr.send();
+    */
 
     var isWebGLSupported = (function() {
         var canvas = document.createElement('canvas');
