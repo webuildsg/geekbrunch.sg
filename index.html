@@ -50,8 +50,8 @@
         text-decoration: none;
         text-shadow: none;
         font-size: 150%;
-        background-color: rgba(255, 255, 255, .1);
-        border: .5px solid #fff;
+        background-color: rgba(0,0,0,.75);
+        border: 3px solid #fff;
         position: relative;
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(5px) saturate(100%);
@@ -64,6 +64,11 @@
     a.button:active {
         background-color: rgba(0, 0, 0, .7);
         transform: scale(.98);
+    }
+
+    section span {
+        background-color: rgba(0,0,0,.75);
+        padding: 5px;
     }
 
     footer {
@@ -88,7 +93,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: .3;
+        opacity: .7;
         pointer-events: none;
         z-index: -1;
         text-align: left;
@@ -101,16 +106,25 @@
     }
 </style>
 <section>
-    <h1>Geek Brunch SG</h1>
-    <p>A biannual social gathering for all developers, makers and designers in&nbsp;Singapore.</p>
-    <p>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</p>
+    <h1><span>Geek Brunch SG</span></h1>
+    <p><span>A biannual social gathering for all developers, makers and designers in&nbsp;Singapore.</span></p>
+    <p><span>Come down and have a brunch. Bring your family &amp; all curious folks&nbsp;along ❤️</span></p>
     <div id="event-details">
+        <p>
+            <span>
+                <a href="http://venusaur.glitch.me/ical/?start=2019-08-18T11%3A00%3A00%2B08%3A00&end=2019-08-18T14%3A00%3A00%2B08%3A00&timezone=&summary=Geek+Brunch+%239&description=A+biannual+social+gathering+for+all+engineers%2C+designers+and+makers+in+Singapore.&location=Wheeler%27s+Yard%2C+28+Lor+Ampas%2C+Singapore+328781&url=https%3A%2F%2Fwww.facebook.com%2Fevents%2F880713038963304%2F">🗓 Saturday August 18 @ 11AM</a>
+                <br>
+                <a href="https://goo.gl/maps/Fo7x91sGmpZZDip8A" target="_blank">🗺 Wheeler's Yard, Singapore</a>
+            </span>
+        </p>
     </div>
-    <p><a class="button" href="#">Coming soon</a></p>
+    <p><a class="button" href="https://www.facebook.com/events/880713038963304/">Join us!</a></p>
     <footer>
-        <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read our story</a>.<br> Jointly organised by
-        <br>
-        <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a>, <a href="https://kopijs.org/">Kopi.JS</a> &amp; <a href="https://juniordev.sg/">Junior Dev SG</a>.
+        <span>
+            <a href="https://medium.com/we-build-sg/the-story-of-geek-brunch-singapore-943c3c99515f">Read our story</a>.<br> Jointly organised by
+            <br>
+            <a href="https://webuild.sg/">We Build SG</a>, <a href="https://engineers.sg/">Engineers.SG</a>, <a href="https://kopijs.org/">Kopi.JS</a> &amp; <a href="https://juniordev.sg/">Junior Dev SG</a>.
+        </span>
     </footer>
 </section>
 <div id="background"></div>
@@ -260,7 +274,7 @@
         container.appendChild(renderer.domElement);
 
         var clock = new THREE.Clock();
-        var supportsOrientation = typeof window.orientation != 'undefined';
+        var supportsOrientation = typeof window.orientation != 'undefined' && !DeviceOrientationEvent.requestPermission;
 
         function update() {
             var delta = clock.getDelta();
